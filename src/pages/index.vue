@@ -11,6 +11,17 @@ const canFlip = ref(false);
 // 翻转激活的滚动进度阈值（与第二阶段开始同步）
 const flipActivationProgress = 0.6;
 
+useSeoMeta({
+	title: "Revue Interlude - 少女歌剧 Revue Starlight Visual Showcase",
+	description: "一个受《少女歌剧 Revue Starlight》启发的个人主页项目。由 GSAP 驱动的流畅滚动叙事体验，无缝呈现日语和中文内容。",
+	ogTitle: "Revue Interlude - 少女歌剧 Revue Starlight Visual Showcase",
+	ogDescription: "一个受《少女歌剧 Revue Starlight》启发的个人主页项目。由 GSAP 驱动的流畅滚动叙事体验。",
+	ogType: "website",
+	twitterCard: "summary_large_image",
+	twitterTitle: "Revue Interlude - 少女歌剧 Revue Starlight Visual Showcase",
+	twitterDescription: "一个受《少女歌剧 Revue Starlight》启发的个人主页项目。",
+});
+
 const initScrollAnimation = () => {
 	const { $gsap } = useNuxtApp();
 	if (!$gsap || !containerRef.value || !nextSectionRef.value)

@@ -12,6 +12,11 @@ const loopCount = ref(99);
 const isShutterActive = ref(false);
 const currentQuoteIndex = ref(0);
 
+useSeoMeta({
+	title: "Revue Interlude - Re-performance",
+	robots: "noindex", // 隐藏彩蛋页面
+});
+
 // 监控 loopCount，超过 120 则跳转
 watch(loopCount, (newValue) => {
 	if (newValue > 120) {
