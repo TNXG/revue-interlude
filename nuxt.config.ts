@@ -6,7 +6,6 @@ export default defineNuxtConfig({
 		head: {
 			charset: "utf-8",
 			viewport: "width=device-width, initial-scale=1",
-			title: "Revue Interlude | 天翔TNXG的自留地",
 			htmlAttrs: {
 				lang: "zh-CN",
 			},

@@ -13,8 +13,8 @@ const isShutterActive = ref(false);
 const currentQuoteIndex = ref(0);
 
 useSeoMeta({
-	title: "Revue Interlude - Re-performance",
-	robots: "noindex", // 隐藏彩蛋页面
+	title: "Re-performance of Nana | 天翔TNXG的自留地",
+	robots: "noindex",
 });
 
 // 监控 loopCount，超过 120 则跳转
@@ -24,8 +24,9 @@ watch(loopCount, (newValue) => {
 	}
 });
 
-// 奈奈的台词库（双语版）
+// 奈奈的台词库（双语版） - 扩充版
 const quotes = [
+	// --- 原有台词 ---
 	{ text: "みんな、私が守るから。", trans: "大家，由我来守护。" },
 	{ text: "このままでいい、これがいい。", trans: "这样就好，这样最好。" },
 	{ text: "眩しい... あの頃のまま。", trans: "好耀眼... 就和那时候一样。" },
@@ -34,6 +35,28 @@ const quotes = [
 	{ text: "バナナ、ナイス！", trans: "Banana, Nice!" },
 	{ text: "時間が止まればいいのに。", trans: "如果时间能停止就好了。" },
 	{ text: "次の舞台なんて、いらない。", trans: "下一个舞台什么的，我不需要。" },
+
+	// --- 新增台词 (TV动画版) ---
+	{
+		text: "舞台に実ったたわわな果実。私が守るの、ずっと、何度でも！",
+		trans: "舞台上结出的丰硕果实。但这大家太过柔嫩，必须有人来守护才行。我会守护大家的，永远，无论多少次！",
+	},
+	{ text: "ずっと待ってる。", trans: "我会一直等着。" },
+
+	// --- 新增台词 (剧场版 - 皆杀的Revue / 狩猎的Revue) ---
+	{
+		text: "今は今はと言い訳重ね、生き恥晒した醜い果実。星の遠きに望みを絶たれ、君、今死にたもうことなかれ。",
+		trans: "“现在也好，现在也好”，堆砌着借口，曝晒出生存之耻的丑陋果实。对那遥远星辰的渴望既已断绝，你，如今切莫死去。",
+	},
+	{
+		text: "熟れて堕ちゆく運命なら、今、君に美しい最期を。",
+		trans: "若命运注定熟透坠落，此刻，便赐予你美丽的终结。",
+	},
+	{ text: "なんだか、強いお酒を飲んだみたい。", trans: "总觉得，像是喝了烈酒一样。" },
+	{ text: "お前、なんで舞台に立ってるの？", trans: "你，为什么站在舞台上？" },
+	{ text: "終わったのかもしれない、私の再演が今。", trans: "或许已经结束了，我的再演，就在此刻。" },
+	{ text: "私たちはもう、舞台の上。", trans: "我们已经，站在舞台上了。" },
+	{ text: "演じきってみせてよ、星見純那。", trans: "演到底给我看啊，星见纯那。" },
 ];
 
 // 格式化循环次数，模拟大数值
@@ -129,8 +152,8 @@ onMounted(() => {
 				/>
 				<circle cx="100" cy="100" r="70" fill="none" stroke="#ffd700" stroke-width="0.5" opacity="0.1" />
 				<path
-					d="M100 10 L100 0 M100 200 L100 190 M10 100 L0 100 M200 100 L190 100" stroke="#ffd700" stroke-width="2"
-					opacity="0.3"
+					d="M100 10 L100 0 M100 200 L100 190 M10 100 L0 100 M200 100 L190 100" stroke="#ffd700"
+					stroke-width="2" opacity="0.3"
 				/>
 			</svg>
 		</div>

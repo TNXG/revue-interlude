@@ -63,7 +63,7 @@ onBeforeUnmount(() => {
 				</div>
 
 				<!-- REVUE：原汁原味设计 -->
-				<span class="project-revue">REVUE</span>
+				<a href="https://github.com/TNXG/revue-interlude" target="_blank" class="project-revue" title="View on GitHub">REVUE</a>
 			</div>
 
 			<!-- 底部发光条 -->
@@ -200,6 +200,15 @@ $accent-red: #e4002b;
 	/* 保持原来设计的无衬线 */
 	font-family: inherit;
 	text-shadow: 0 0 10px rgba($text-gold, 0.3);
+	text-decoration: none;
+	transition:
+		color 0.3s,
+		text-shadow 0.3s;
+}
+
+.project-revue:hover {
+	color: #fff;
+	text-shadow: 0 0 15px rgba($text-gold, 0.6);
 }
 
 /* --- 底部红色装饰条 (UI 质感) --- */
