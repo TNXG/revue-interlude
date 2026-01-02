@@ -4,7 +4,7 @@ import { onMounted, ref } from "vue";
 const containerRef = ref();
 const nextSectionRef = ref();
 const nextContentRef = ref();
-const watashiRef = ref <any> (null);
+const watashiRef = ref<any>(null);
 const isWatashiReady = ref(false);
 // 是否允许翻转（仅当滚动进入下一阶段内容出现后）
 const canFlip = ref(false);
@@ -82,7 +82,7 @@ const isTouchDevice = ref(false);
 // 点击内容翻转：正面（日文）/ 背面（中文）
 const isFlipped = ref(false);
 const clickCount = ref(0);
-const clickTimer = ref <number> (0);
+const clickTimer = ref<number>(0);
 
 const toggleFlip = () => {
 	// 尚未进入内容阶段时禁止任何翻转/彩蛋逻辑
@@ -127,8 +127,8 @@ onMounted(() => {
 		</div>
 		<section ref="nextSectionRef" class="next-section" :class="{ 'is-ready': isWatashiReady }">
 			<div
-				ref="nextContentRef" class="content" :class="{ 'is-flipped': isFlipped, 'is-active': canFlip }" role="button"
-				aria-pressed="false" tabindex="0" @click="toggleFlip"
+				ref="nextContentRef" class="content" :class="{ 'is-flipped': isFlipped, 'is-active': canFlip }"
+				role="button" aria-pressed="false" tabindex="0" @click="toggleFlip"
 			>
 				<div class="flip-inner">
 					<!-- 正面：日文 -->
@@ -255,12 +255,18 @@ onMounted(() => {
 	.flip-face {
 		backface-visibility: hidden;
 		-webkit-backface-visibility: hidden;
+		-moz-backface-visibility: hidden;
+
 		display: flex;
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
 		text-align: center;
 		width: 100%;
+
+		background-color: #fc5558;
+		transform: translateZ(1px);
+		will-change: transform;
 	}
 
 	.flip-back {
@@ -268,7 +274,7 @@ onMounted(() => {
 		top: 0;
 		left: 0;
 		right: 0;
-		transform: rotateY(180deg);
+		transform: rotateY(180deg) translateZ(1px);
 	}
 
 	h1 {
@@ -362,9 +368,11 @@ onMounted(() => {
 		align-items: center;
 		justify-content: center;
 	}
+
 	.next-section .content {
 		padding: 0 1rem;
 	}
+
 	.next-section .stage-title {
 		font-size: clamp(1.2rem, 5.8vw, 2.2rem);
 		letter-spacing: 0.02em;
@@ -372,18 +380,22 @@ onMounted(() => {
 		line-height: 1.3;
 		white-space: nowrap;
 	}
+
 	.next-section .stage-message {
 		font-size: clamp(0.9rem, 4vw, 1.3rem);
 		line-height: 1.75;
 		margin-top: 1.5rem;
 	}
+
 	.next-section .star-decoration {
 		font-size: clamp(1.6rem, 6vw, 2.4rem);
 	}
+
 	.next-section .stage-highlight {
 		font-size: 1em;
 		letter-spacing: 0.08em;
 	}
+
 	.next-section .flip-inner {
 		transition-duration: 0.7s;
 	}
@@ -393,18 +405,22 @@ onMounted(() => {
 	.next-section {
 		padding: 1.5rem 0;
 	}
+
 	.next-section .content {
 		padding: 0 0.8rem;
 	}
+
 	.next-section .stage-title {
 		font-size: clamp(1rem, 5.2vw, 1.9rem);
 		letter-spacing: 0.01em;
 		line-height: 1.25;
 		white-space: nowrap;
 	}
+
 	.next-section .stage-message {
 		font-size: clamp(0.85rem, 4.6vw, 1.15rem);
 	}
+
 	.next-section .star-decoration {
 		font-size: clamp(1.4rem, 7vw, 2rem);
 	}
