@@ -1,5 +1,7 @@
 // SSR 中间件：拦截友链访问并重定向
 export default defineEventHandler((event) => {
+	console.log("[friend-redirect] middleware triggered:", event.node.req.url);
+
 	const url = new URL(event.node.req.url || "", `http://${event.node.req.headers.host}`);
 
 	// 友链名单
@@ -66,20 +68,42 @@ export default defineEventHandler((event) => {
 	const originHeader = event.node.req.headers.origin;
 	const origin = Array.isArray(originHeader) ? originHeader[0] : originHeader;
 
-	// 检查是否为友链
+	// 调试日志：打印所有相关 headers
+	console.log("[friend-redirect] headers:", {
+		referer,
+		origin,
+		host: event.node.req.headers.host,
+	});
+
+	// 检查是否为友链（支持带或不带 www）
 	const isFriend = (urlStr: string | undefined): boolean => {
 		if (!urlStr)
 			return false;
 		try {
-			return friendHosts.has(new URL(urlStr).hostname);
-		} catch {
+			const hostname = new URL(urlStr).hostname;
+			const matched = friendHosts.has(hostname) || friendHosts.has(hostname.replace(/^www\./, "")) || friendHosts.has(`www.${hostname}`);
+			console.log("[friend-redirect] isFriend check:", { urlStr, hostname, matched });
+			return matched;
+		} catch (e) {
+			console.log("[friend-redirect] isFriend error:", { urlStr, error: e });
 			return false;
 		}
 	};
 
+	console.log("[friend-redirect] 检查结果:", {
+		refererIsFriend: isFriend(referer),
+		originIsFriend: isFriend(origin),
+	});
+
 	// 如果是友链访问，重定向到目标站点
 	if (isFriend(referer) || isFriend(origin)) {
 		const targetUrl = new URL(url.pathname + url.search, "https://www.tnxg.moe");
+		console.log("[friend-redirect] 友链重定向:", {
+			from: referer || origin,
+			to: targetUrl.toString(),
+			userAgent: event.node.req.headers["user-agent"],
+			ip: event.node.req.headers["x-forwarded-for"] || event.node.req.socket?.remoteAddress,
+		});
 		return sendRedirect(event, targetUrl.toString(), 302);
 	}
 
@@ -87,6 +111,12 @@ export default defineEventHandler((event) => {
 	const host = event.node.req.headers.host || "";
 	if (host && !host.startsWith("www.") && !host.startsWith("localhost")) {
 		const wwwUrl = new URL(url.pathname + url.search, `${url.protocol}//www.${host}`);
+		console.log("[friend-redirect] www重定向:", {
+			from: host,
+			to: wwwUrl.toString(),
+			userAgent: event.node.req.headers["user-agent"],
+			ip: event.node.req.headers["x-forwarded-for"] || event.node.req.socket?.remoteAddress,
+		});
 		return sendRedirect(event, wwwUrl.toString(), 301);
 	}
 
