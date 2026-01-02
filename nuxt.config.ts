@@ -1,4 +1,4 @@
-import { fileURLToPath } from "node:url";
+import { resolve } from "node:path";
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
@@ -16,12 +16,15 @@ export default defineNuxtConfig({
 	modules: ["@nuxt/icon", "@nuxt/fonts"],
 	srcDir: "src/",
 	alias: {
-		"@": fileURLToPath(new URL("./src", import.meta.url)),
+		"@": resolve(__dirname, "./src"),
 	},
 	typescript: {
 		strict: true,
 	},
-	routeRules: {
-		"/**": { prerender: true },
+	// 启用 SSR 模式
+	ssr: true,
+	// 移除预渲染规则，改用 SSR
+	nitro: {
+		preset: "node-server", // 或者使用其他适合的 preset
 	},
 });
