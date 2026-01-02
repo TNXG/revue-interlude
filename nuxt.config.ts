@@ -18,6 +18,7 @@ export default defineNuxtConfig({
 	alias: {
 		"@": resolve(__dirname, "./src"),
 	},
+	serverDir: "src/server",
 	typescript: {
 		strict: true,
 	},
