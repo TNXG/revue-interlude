@@ -83,5 +83,12 @@ export default defineEventHandler((event) => {
 		return sendRedirect(event, targetUrl.toString(), 302);
 	}
 
+	// 检查是否需要重定向到 www
+	const host = event.node.req.headers.host || "";
+	if (host && !host.startsWith("www.") && !host.startsWith("localhost")) {
+		const wwwUrl = new URL(url.pathname + url.search, `${url.protocol}//www.${host}`);
+		return sendRedirect(event, wwwUrl.toString(), 301);
+	}
+
 	// 普通访问，继续处理
 });
